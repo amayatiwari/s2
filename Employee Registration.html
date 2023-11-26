@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration</title>
+</head>
+<body>
+
+<h2>Employee Registration</h2>
+
+<form id="employeeForm" onsubmit="return validateForm()">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required>
+
+    <label for="joiningDate">Joining Date:</label>
+    <input type="date" id="joiningDate" name="joiningDate" required>
+
+    <label for="salary">Salary:</label>
+    <input type="number" id="salary" name="salary" required>
+
+    <button type="submit">Submit</button>
+</form>
+
+<div id="error-message"></div>
+
+<script>
+    function validateForm() {
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var dob = document.getElementById("dob").value;
+        var joiningDate = document.getElementById("joiningDate").value;
+        var salary = document.getElementById("salary").value;
+
+        // Validate Date of Birth
+        if (new Date(dob) >= new Date()) {
+            displayError("Date of Birth cannot be in the future");
+            return false;
+        }
+
+        // Validate Joining Date
+        if (new Date(joiningDate) >= new Date()) {
+            displayError("Joining Date cannot be in the future");
+            return false;
+        }
+
+        // Validate Salary
+        if (isNaN(salary) || salary <= 0) {
+            displayError("Please enter a valid positive salary");
+            return false;
+        }
+
+        // If all validations pass, return true to submit the form
+        return true;
+    }
+
+    function displayError(message) {
+        var errorMessageElement = document.getElementById("error-message");
+        errorMessageElement.innerHTML = message;
+    }
+</script>
+
+</body>
+</html>
